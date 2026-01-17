@@ -1,0 +1,86 @@
+:root {
+    --gold: #c5a059;
+    --dark: #050505;
+    --black-soft: #0d0d0d;
+    --white: #ffffff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+body { background: var(--dark); color: var(--white); overflow-x: hidden; }
+
+/* 1. Preloader & Liquid BG */
+#preloader {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #000; z-index: 10000; display: flex; align-items: center; justify-content: center;
+    transition: opacity 0.8s ease, visibility 0.8s;
+}
+.loader-logo { font-family: 'Cinzel'; font-size: 3.5rem; letter-spacing: 12px; color: var(--gold); margin-bottom: 20px; }
+.loader-bar-container { width: 200px; height: 1px; background: #111; overflow: hidden; }
+.loader-bar { width: 0%; height: 100%; background: var(--gold); transition: width 1.5s ease; }
+
+#liquid-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; filter: blur(60px); opacity: 0.3; }
+
+/* 2. Navigation */
+.hero-nav { 
+    position: fixed; top: 0; width: 100%; padding: 25px 8%; 
+    display: flex; justify-content: space-between; align-items: center; 
+    z-index: 1000; background: rgba(5,5,5,0.85); backdrop-filter: blur(15px);
+}
+.header-icons { display: flex; gap: 25px; align-items: center; }
+.icon-group { position: relative; cursor: pointer; font-size: 1.2rem; transition: 0.3s; }
+.icon-group:hover { color: var(--gold); }
+.badge { position: absolute; top: -8px; right: -10px; background: var(--gold); color: #000; font-size: 0.6rem; padding: 2px 5px; border-radius: 50%; font-weight: bold; }
+
+/* 3. Split-Hero */
+.hero-split { height: 100vh; display: flex; align-items: center; padding: 0 8%; }
+.hero-left { width: 55%; }
+.hero-right { width: 45%; display: flex; justify-content: center; }
+.main-title { font-family: 'Cinzel'; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1; margin-bottom: 30px; }
+.gold-text { color: var(--gold); font-style: italic; }
+.image-reveal-container { width: 85%; height: 70vh; border: 1px solid rgba(197, 160, 89, 0.2); overflow: hidden; animation: slowFloat 8s infinite ease-in-out; }
+.hero-img-main { width: 100%; height: 100%; object-fit: cover; }
+
+/* 4. Product Cards */
+.perfume-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+.perfume-card {
+    background: var(--black-soft); padding: 25px; border: 1px solid #1a1a1a;
+    transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1); position: relative; overflow: hidden;
+}
+.perfume-card::before {
+    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(197, 160, 89, 0.08) 0%, transparent 70%);
+    opacity: 0; transition: opacity 0.5s; pointer-events: none;
+}
+.perfume-card:hover { transform: translateY(-10px); border-color: var(--gold); }
+.perfume-card:hover::before { opacity: 1; }
+
+.img-container { 
+    height: 280px; display: flex; align-items: center; justify-content: center; 
+    background: #080808; margin-bottom: 15px; position: relative; 
+}
+.img-container img { max-height: 85%; transition: 0.6s; }
+.perfume-card:hover img { transform: scale(1.05); }
+
+/* Badges and Tags */
+.discount-badge {
+    position: absolute; top: 10px; left: 10px; background: var(--gold);
+    color: black; padding: 4px 8px; font-weight: bold; font-size: 0.7rem; z-index: 2;
+}
+.sold-out-tag {
+    position: absolute; color: white; border: 1px solid white;
+    padding: 5px 15px; font-family: 'Cinzel'; letter-spacing: 2px;
+    background: rgba(0,0,0,0.7); z-index: 3;
+}
+
+/* 5. Panels & Modals */
+.cart-panel { position: fixed; right: -400px; top: 0; width: 380px; height: 100%; background: #0a0a0a; z-index: 2000; transition: 0.4s; padding: 30px; border-left: 1px solid var(--gold); display: flex; flex-direction: column; }
+.cart-panel.active { right: 0; }
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 5000; align-items: center; justify-content: center; }
+.modal-card { background: #111; padding: 40px; border: 1px solid var(--gold); width: 400px; text-align: center; }
+
+/* 6. Buttons */
+.cta-btn-alt { background: transparent; color: white; border: 1px solid var(--gold); padding: 15px 35px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; }
+.cta-btn-alt:hover { background: var(--gold); color: black; }
+.pay-btn, .checkout-btn { width: 100%; padding: 18px; background: var(--gold); border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+
+@keyframes slowFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }

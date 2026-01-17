@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARÔME | The Art of Invisible Sophistication</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="loader-content">
+            <h1 class="loader-logo">ARÔME</h1>
+            <div class="loader-bar-container"><div class="loader-bar"></div></div>
+        </div>
+    </div>
+
+    <canvas id="liquid-bg"></canvas>
+
+    <header class="hero-nav">
+        <div class="logo" onclick="showSection('main-view')">ARÔME</div>
+        <div class="header-icons">
+            <div class="icon-group" onclick="showSection('track-section')"><i class="fas fa-truck"></i></div>
+            <div class="icon-group" onclick="showSection('wishlist-view')">
+                <i class="far fa-heart"></i>
+                <span id="wish-count" class="badge">0</span>
+            </div>
+            <div class="icon-group" onclick="toggleCart()">
+                <i class="fas fa-shopping-bag"></i>
+                <span id="cart-count" class="badge">0</span>
+            </div>
+        </div>
+    </header>
+
+    <div id="main-view" class="page-view">
+        <section class="hero-split">
+            <div class="hero-left">
+                <span class="tagline">The Art of Presence</span>
+                <h1 class="main-title">A Symphony of <br><span class="gold-text">Oud & Silk</span></h1>
+                <p class="hero-subtext">Limited Edition 2026 Collection — Handcrafted in Grasse.</p>
+                <button class="cta-btn-alt" onclick="document.getElementById('store').scrollIntoView({behavior:'smooth'})">Explore Collection</button>
+            </div>
+                <div class="hero-right">
+                    <div class="image-reveal-container">
+                      <img src="images/hero-perfume.jpg" alt="Luxury Fragrance" class="hero-img-main">
+               </div>
+           </div>
+        </section>
+
+        <main id="store" class="container">
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search for a scent..." onkeyup="filterAndSort()">
+            </div>
+            <div class="filter-bar">
+                <select id="genderFilter" onchange="filterAndSort()">
+                    <option value="all">All Editions</option>
+                    <option value="Him">For Him</option>
+                    <option value="Her">For Her</option>
+                    <option value="Unisex">Unisex</option>
+                </select>
+                <select id="sortOption" onchange="filterAndSort()">
+                    <option value="popularity">Popularity</option>
+                    <option value="low">Price: Low to High</option>
+                    <option value="high">Price: High to Low</option>
+                </select>
+            </div>
+            <div class="perfume-grid" id="perfume-list"></div>
+        </main>
+    </div>
+
+    <section id="track-section" class="container page-view" style="display:none; padding-top:140px; text-align:center;">
+        <h2 style="font-family:'Cinzel'; color:var(--gold); margin-bottom:40px;">Order Status</h2>
+        <div class="modal-card" style="margin: 0 auto;">
+            <input type="text" id="trackInput" placeholder="Enter Order ID">
+            <button class="pay-btn" onclick="handleTrack()">Track Shipment</button>
+            <div id="track-status" style="display:none; margin-top:30px; border-top:1px solid #222; padding-top:20px; text-align:left;">
+                <p style="font-size:0.9rem;">Status: <span style="color:var(--gold)">Processed / In Transit</span></p>
+                <p style="font-size:0.8rem; color:#666; margin-top:5px;">Estimated Delivery: 2 Days</p>
+            </div>
+        </div>
+        <button class="cta-btn-alt" style="margin-top:50px;" onclick="showSection('main-view')">Back to Collection</button>
+    </section>
+
+    <section id="wishlist-view" class="container page-view" style="display:none; padding-top:140px;">
+        <h2 style="font-family:'Cinzel'; text-align:center; color:var(--gold); margin-bottom:40px;">My Wishlist</h2>
+        <div class="perfume-grid" id="wishlist-grid"></div>
+        <p onclick="showSection('main-view')" style="text-align:center; margin-top:40px; cursor:pointer; text-decoration:underline;">Continue Shopping</p>
+    </section>
+
+    <div id="cart-panel" class="cart-panel">
+        <div class="cart-header">
+            <h3 style="font-family:'Cinzel';">Your Bag</h3>
+            <i class="fas fa-times" onclick="toggleCart()" style="cursor:pointer"></i>
+        </div>
+        <div id="cart-items" style="flex-grow: 1; overflow-y: auto;"></div>
+        <div class="cart-footer">
+            <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
+                <span>Total</span>
+                <span id="total-price">₹0</span>
+            </div>
+            <button class="checkout-btn" onclick="openCheckout()">Checkout Securely</button>
+        </div>
+    </div>
+
+    <div id="checkout-modal" class="modal">
+        <div class="modal-card">
+            <h3 style="font-family:'Cinzel'; color:var(--gold); margin-bottom:20px;">Payment</h3>
+            <form onsubmit="finalizeOrder(event)">
+                <input type="text" placeholder="Cardholder Name" required>
+                <input type="text" placeholder="Card Number" maxlength="16" required>
+                <button type="submit" class="pay-btn">Complete Purchase</button>
+                <p onclick="closeCheckout()" style="cursor:pointer; margin-top:15px; font-size:0.8rem;">Cancel</p>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
